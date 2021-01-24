@@ -4,8 +4,15 @@ mod references;
 mod slices;
 mod structs;
 mod enums;
-mod packages;
+mod modules;
 mod mods;
+mod vecs;
+mod strs;
+mod hashmaps;
+mod errors;
+mod traits;
+mod lifetimes;
+
 
 fn main() {
     types::test();
@@ -14,6 +21,12 @@ fn main() {
     slices::test();
     structs::test();
     enums::test();
-    packages::test();
+    modules::test();
     mods::test();
+    vecs::test();
+    strs::test();
+    hashmaps::test();
+    errors::test();
+    traits::test();
+    lifetimes::test();
 }

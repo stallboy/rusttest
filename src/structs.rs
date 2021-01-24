@@ -64,6 +64,7 @@ fn test_debug() {
 
 
 impl Rectangle {
+    //这是一个method，注意第一个参数是&self
     fn area(&self) -> u32 {
         self.width * self.height
     }
@@ -82,7 +83,7 @@ fn test_method() {
 }
 
 impl Rectangle {
-    //这仍然是function，不是method
+    //这是function，不是method
     //区别在第一个参数不是&self
     fn square(size: u32) -> Rectangle {
         Rectangle {

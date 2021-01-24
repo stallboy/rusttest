@@ -24,8 +24,12 @@ fn test_slice() {
 
     let a = [1, 2, 3, 4, 5];
 
-    let slice = &a[1..3];
+    // array的slice
+    let slice: &[i32] = &a[1..3];
     println!("{}", slice[0]);
+
+    let slice2: &[i32] = &a[0..0];
+    println!("slice with {} items", slice2.len());
 }
 
 // string literals 作为binary里data里的一段数据，这里s的类型是&str

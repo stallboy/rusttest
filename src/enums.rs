@@ -5,16 +5,20 @@ pub fn test() {
     test_if_let();
 }
 
+// 枚举的内存布局，见下网页
+// https://doc.rust-lang.org/reference/type-layout.html
+// 其实就是tag + payload （payload是union）
 enum IpAddr {
     V4(u8, u8, u8, u8),
-    V6(String),
+    V6(u32),
 }
 
 
 fn test_enum() {
     let home = IpAddr::V4(127, 0, 0, 1);
-    let loopback = IpAddr::V6(String::from("::1"));
-
+    let test = IpAddr::V6(0xaabbccdd);
+    //可在此断点，查看enum内存布局，
+    // 可知tag占u8，但后面的u32会对齐align到4 byte位置。
 
     let localhost_v4 = std::net::IpAddr::V4(std::net::Ipv4Addr::new(127, 0, 0, 1));
     println!("{}", localhost_v4);
