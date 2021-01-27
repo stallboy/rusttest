@@ -14,10 +14,11 @@ struct User {
 }
 
 fn test_struct() {
+    // 这个结构是分配在栈上的
     let mut u = User {
         username: "meta".to_string(),
         email: "".to_string(),
-        sign_in_count: 0,
+        sign_in_count: 0xabcdef12,
         active: false,
     };
     u.email = "abc@a.com".to_string();

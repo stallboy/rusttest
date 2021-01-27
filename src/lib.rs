@@ -1,3 +1,10 @@
+mod closures;
+mod iterators;
+mod boxes;
+mod rcs;
+mod threads;
+mod advanced_traits;
+
 pub struct Guess {
     value: i32,
 }
@@ -26,8 +33,8 @@ mod tests {
     }
 
     #[test]
-    fn exploration() {
-        assert_eq!(2 + 2, 4);
+    fn ok_guess() {
+        assert_eq!(99, Guess::new(99).value);
     }
 
     #[test]

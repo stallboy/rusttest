@@ -1,4 +1,3 @@
-
 // 在任意给定时间，要么 只能有一个可变引用，要么 只能有多个不可变引用。
 // 引用必须总是有效的。
 pub fn test() {
@@ -65,4 +64,19 @@ fn test_reference() {
 
 fn calculate_len2(s: &String, s2: &String) -> usize {
     s.len() + s2.len()
+}
+
+#[test]
+fn test_reference_hard() {
+    let s1 = String::from("hello");
+    let s2 = String::from("world");
+
+    let mut arr = vec![&s1, &s2];
+    print(&s1, &mut arr);
+
+}
+
+fn print(s1: & String, arr : &mut Vec<&String>){
+    println!("{}", s1);
+
 }

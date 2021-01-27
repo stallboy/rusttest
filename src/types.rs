@@ -22,3 +22,18 @@ pub fn test() {
     //这里断点调试，可看到栈信息，char是4字节，b，c结构也在栈上
     println!("{} {} {}", a, b.1, c[0]);
 }
+
+
+fn r2() -> i32 {
+    2
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn simple() {
+        assert_eq!(r2(), 2)
+    }
+}

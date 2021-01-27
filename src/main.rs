@@ -14,7 +14,10 @@ mod traits;
 mod lifetimes;
 
 
+
 fn main() {
+    //lib.rs文件名的作用
+    let guess = rusttest::Guess::new(99);
     types::test();
     ownerships::test();
     references::test();
@@ -22,6 +25,7 @@ fn main() {
     structs::test();
     enums::test();
     modules::test();
+    //mods目录下mod.rs文件名的作用。
     mods::test();
     vecs::test();
     strs::test();
@@ -29,4 +33,15 @@ fn main() {
     errors::test();
     traits::test();
     lifetimes::test();
+}
+
+
+fn func_in_main() -> i32 {
+    42
+}
+
+#[cfg(test)]
+#[test]
+fn test_func_in_main(){
+    assert_eq!(func_in_main(), 42);
 }
