@@ -4,6 +4,7 @@ mod boxes;
 mod rcs;
 mod threads;
 mod advanced_traits;
+mod macros;
 
 pub struct Guess {
     value: i32,

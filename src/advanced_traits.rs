@@ -52,3 +52,20 @@ fn test_super_traits() {
     p.outline_print();
 }
 
+
+
+fn generic<T>(t: T) {
+    // --snip--
+}
+// 实际上是被处理成
+fn generic2<T: Sized>(t: T) {
+    // --snip--
+}
+
+// 除非你特意加上?Sized,来放宽这个限制,,?Sized trait bound它可以读作"T 可能是也可能不是 Sized 的"
+// 注意我们将 t 参数的类型从 T 变为了 &T：因为其类型可能不是 Sized 的，
+// 所以需要将其置于某种指针之后。在这个例子中选择了引用。
+fn generic3<T: ?Sized>(t: &T) {
+    // --snip--
+}
+
