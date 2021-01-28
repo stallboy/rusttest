@@ -3,8 +3,10 @@ mod iterators;
 mod boxes;
 mod rcs;
 mod threads;
-mod advanced_traits;
 mod macros;
+mod traits;
+mod advanced_traits;
+
 
 pub struct Guess {
     value: i32,

@@ -7,14 +7,10 @@
 // 没有这条规则的话，两个 crate 可以分别对相同类型实现相同的 trait，而 Rust 将无从得知应该使用哪一个实现。
 
 // 以上就是trait和java interface机制的主要区别。实现没必要在类声明的地方。而是可以逐步添加。
-pub(crate) fn test() {
-    test_imp_trait();
-    test_find_max();
-    test_find_max2();
-    let s = 3.to_string();
-}
 
-fn test_imp_trait() {
+
+#[test]
+fn test_imp_trait_static_dispatch() {
     notify(123);
     notify('c');
 }
@@ -30,7 +26,8 @@ fn notify2<T: ToString>(item: T) {
 }
 
 
-fn test_find_max() {
+#[test]
+fn test_find_max_copy() {
     let number_list = vec![34, 50, 25, 100, 65];
     let result = largest(&number_list);
     println!("The largest number is {}", result);
@@ -52,18 +49,19 @@ fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     largest
 }
 
-
-fn test_find_max2() {
+// 注意看跟前一个的区别，这里用reference
+#[test]
+fn test_find_max_reference() {
     let number_list = vec![34, 50, 25, 100, 65];
-    let result = largest2(&number_list);
+    let result = largest_ref(&number_list);
     println!("The largest number is {}", result);
 
     let char_list = vec!['y', 'm', 'a', 'q'];
-    let result = largest2(&char_list);
+    let result = largest_ref(&char_list);
     println!("The largest char is {}", result);
 }
 
-fn largest2<T: PartialOrd>(list: &[T]) -> &T {
+fn largest_ref<T: PartialOrd>(list: &[T]) -> &T {
     let mut largest = &list[0];
 
     for item in list.iter() {
@@ -74,3 +72,28 @@ fn largest2<T: PartialOrd>(list: &[T]) -> &T {
 
     largest
 }
+
+
+
+trait Printable {
+    fn stringify(&self) -> String;
+}
+
+impl Printable for i32 {
+    fn stringify(&self) -> String { self.to_string() + "xxx" }
+}
+
+//调试可看到a结构为 pointer + vtable（vtable里有3个成员，另外两个是啥？）
+//不能如下声明因为，不知道Printable的Size
+// fn print(a: Printable) {
+fn print(a: &dyn Printable) {
+    let x = 0x1234abcd; //as marker
+    println!("{} {}", a.stringify(), x);
+}
+
+#[test]
+fn test_trait_as_param() {
+    print(&10);
+}
+
+

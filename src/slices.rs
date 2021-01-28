@@ -1,3 +1,18 @@
+// SliceType :
+// [ Type ]
+//
+// A slice is a dynamically sized type representing a 'view' into a sequence of elements of type T.
+// The slice type is written as [T].
+// To use a slice type it generally has to be used behind a pointer for example as:
+//
+// &[T], a 'shared slice', often just called a 'slice', it doesn't own the data it points to, it borrows it.
+// &mut [T], a 'mutable slice', mutably borrows the data it points to.
+// Box<[T]>, a 'boxed slice'
+
+// Pointer types to DSTs are sized but have twice the size of pointers to sized types
+// ---- Pointers to slices also store the number of elements of the slice.
+// ---- Pointers to trait objects also store a pointer to a vtable.
+
 // slice的结构是 ptr，len, “string slice” is written as &str
 // reference的结构是只有一个ptr
 // String的结构是ptr，cap，len

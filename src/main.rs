@@ -10,7 +10,6 @@ mod vecs;
 mod strs;
 mod hashmaps;
 mod errors;
-mod traits;
 mod lifetimes;
 
 
@@ -31,8 +30,8 @@ fn main() {
     strs::test();
     hashmaps::test();
     errors::test();
-    traits::test();
     lifetimes::test();
+
 }
 
 

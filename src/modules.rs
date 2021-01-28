@@ -2,6 +2,22 @@
 // 包（package） 是提供一系列功能的一个或者多个 crate。一个包会包含有一个 Cargo.toml 文件，阐述如何去构建这些 crate。
 // 模块 让我们可以将一个 crate 中的代码进行分组，以提高可读性与重用性。
 
+//
+// Crate :
+// --- UTF8BOM?
+// --- SHEBANG?
+// --- InnerAttribute*
+// --- Item*
+// A crate is a unit of compilation and linking, as well as versioning, distribution, and runtime loading.
+// A crate contains a tree of nested module scopes
+// The top level of this tree is a module that is anonymous (from the point of view of paths within the module)
+// and any item within a crate has a canonical module path denoting its location within the crate's module tree.
+
+
+// Every source file is a module,
+// but not every module needs its own source file: module definitions can be nested within one file.
+
+
 pub fn test() {
     test_mod();
     test_struct_field_default_private();
