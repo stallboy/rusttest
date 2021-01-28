@@ -6,6 +6,7 @@ mod threads;
 mod macros;
 mod traits;
 mod advanced_traits;
+mod box_size;
 
 
 pub struct Guess {
