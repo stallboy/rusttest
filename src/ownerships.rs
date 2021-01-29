@@ -8,19 +8,32 @@
 // There can only be one owner at a time.
 // When the owner goes out of scope, the value will be dropped.
 pub fn test() {
-    test_copy();
     test_move();
     test_clone();
     test_mut();
 }
 
+
+#[derive(Copy, Clone, Debug)]
+struct S {
+    a: i32
+}
+
+
 // Stack-Only Data: Copy
+#[test]
 fn test_copy() {
     let a = 123;
     let b = a;
     // ok，这是b = a是copy语义，
     println!("{} {}", a, b);
+
+    // Struct声明为Copy语义后，就可以了
+    let s = S { a: 1234 };
+    let s2 = s;
+    println!("{:?} {:?}", s, s2);
 }
+
 
 fn test_move() {
     let a = String::from("hello"); //第一层结构是ptr，cap，len
@@ -61,8 +74,8 @@ impl Drop for PrintOnDrop {
 
 #[test]
 fn test_drop() {
-    let mut overwritten = PrintOnDrop("drops when overwritten");
-    overwritten = PrintOnDrop("drops when scope ends");
+    let mut _overwritten = PrintOnDrop("drops when overwritten");
+    _overwritten = PrintOnDrop("drops when scope ends");
 
     let tuple = (PrintOnDrop("Tuple first"), PrintOnDrop("Tuple second"));
 
@@ -70,13 +83,13 @@ fn test_drop() {
 // No destructor run on assignment.
     moved = PrintOnDrop("Drops when moved");
 // Drops now, but is then uninitialized.
-    moved;
+    drop(moved);
 
 // Uninitialized does not drop.
     let uninitialized: PrintOnDrop;
 
 // After a partial move, only the remaining fields are dropped.
-    let mut partial_move = (PrintOnDrop("first"), PrintOnDrop("forgotten"));
+    let partial_move = (PrintOnDrop("first"), PrintOnDrop("forgotten"));
 // Perform a partial move, leaving only `partial_move.0` initialized.
     core::mem::forget(partial_move.1);
 // When partial_move's scope ends, only the first field is dropped.

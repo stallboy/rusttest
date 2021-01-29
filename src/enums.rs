@@ -65,3 +65,12 @@ fn test_if_let(){
         println!("three in if let");
     }
 }
+
+struct A{
+    a:i32,
+}
+
+enum B {
+    B1,
+    B2 = 123
+}
