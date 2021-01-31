@@ -1,5 +1,11 @@
 // 所有权（系统）是 Rust 最为与众不同的特性，它让 Rust 无需垃圾回收（garbage collector）即可保障内存安全
 
+// 出错是因为同时aliasing + mutate
+// ownership 的move语义保证不能aliasing
+// borrow 的语义保证不能mutate，当borrow时原有的variable也不能mutate，不能move
+// mut borrow又保证不能aliasing，但mut borrow时，原有的variable根本不能用
+
+
 // Rust 中的每一个值都有一个被称为其 所有者（owner）的变量。
 // 值在任一时刻有且只有一个所有者。
 // 当所有者（变量）离开作用域，这个值将被丢弃。
@@ -16,7 +22,9 @@ pub fn test() {
 
 #[derive(Copy, Clone, Debug)]
 struct S {
-    a: i32
+    a: i32,
+    // 如果下面有堆上的成员，那么不能derive Copy
+    /*b: String*/
 }
 
 
@@ -29,7 +37,7 @@ fn test_copy() {
     println!("{} {}", a, b);
 
     // Struct声明为Copy语义后，就可以了
-    let s = S { a: 1234 };
+    let s = S { a: 1234/*, b: String::from("abc")*/ };
     let s2 = s;
     println!("{:?} {:?}", s, s2);
 }

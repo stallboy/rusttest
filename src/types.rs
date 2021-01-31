@@ -1,3 +1,5 @@
+use std::panic::catch_unwind;
+
 // 标量（scalar）和复合（compound）。
 // scalar: integer, float, char, bool
 // compound: tuple, array
