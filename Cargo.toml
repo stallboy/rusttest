@@ -9,3 +9,7 @@ edition = "2018"
 [dependencies]
 rand = "0.8.2"
 
+[lib]
+proc_macro = true
+name = "foo"           # The name of the target.
+path = "src/lib.rs"

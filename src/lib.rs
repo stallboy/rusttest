@@ -3,14 +3,29 @@ mod iterators;
 mod boxes;
 mod rcs;
 mod threads;
-mod macros;
 mod traits;
 mod advanced_traits;
 mod box_size;
 
 
-pub struct Guess {
+struct Guess {
     value: i32,
+}
+
+
+use proc_macro::TokenStream;
+
+// #[macro_export]
+#[proc_macro_attribute]
+pub fn show_streams(attr: TokenStream, item: TokenStream) -> TokenStream {
+    println!("attr: \"{}\"", attr.to_string());
+    println!("item: \"{}\"", item.to_string());
+    item
+}
+
+#[proc_macro]
+pub fn make_answer(_item: TokenStream) -> TokenStream {
+    "fn answer() -> u32 { 42 }".parse().unwrap()
 }
 
 impl Guess {
